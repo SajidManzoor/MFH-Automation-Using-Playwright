@@ -1,0 +1,27 @@
+﻿# Test artifacts
+tests/fixtures/sample.y4m
+downloads/
+*.png
+debug-*.png
+dropdown-menu.png
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+allure-results/
+allure-report/
+
+
+# Node
+node_modules/
+package-lock.json
+
+# Environment
+.env
+
+# Sensitive / Auth Files
+# -----------------------------
+auth.json
+credentials.js
+Utils/
