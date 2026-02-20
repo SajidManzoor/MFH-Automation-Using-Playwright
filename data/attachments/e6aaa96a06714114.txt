@@ -1,0 +1,204 @@
+
+============================================================
+🔍 AUTO SEARCH & VERIFY - Row 1
+============================================================
+📋 Picked order number: 23801
+📊 Captured status: "new"
+🧹 Cleared search field
+⌨️ Entered order number: 23801
+📊 Search results: 1 row(s) found
+✅ ONLY 1 order displayed (correct)
+✅ Order number verified: 23801
+✅ Status verified: "new"
+============================================================
+✅ ALL VERIFICATIONS PASSED
+============================================================
+
+🧹 Search field cleared
+
+✅ OrderNum column visible
+✅ Notes column visible
+✅ MFH Status column visible
+✅ Customer column visible
+✅ Items column visible
+✅ Kit(s) column visible
+✅ PPKit(s) column visible
+✅ Outbound Shipping column visible
+✅ Actions column visible
+
+============================================================
+🔄 Testing column toggles for 8 columns
+============================================================
+
+
+============================================================
+🔄 Toggling column: OrderNum
+============================================================
+   📊 Current state: Visible
+   🖱️ Clicked toggle for OrderNum
+   📊 New state: Hidden
+   ✅ Column "OrderNum" is now HIDDEN from table
+============================================================
+
+
+============================================================
+🔄 Toggling column: OrderNum
+============================================================
+   📊 Current state: Hidden
+   🖱️ Clicked toggle for OrderNum
+   📊 New state: Visible
+   ✅ Column "OrderNum" is now VISIBLE in table
+============================================================
+
+
+============================================================
+🔄 Toggling column: Notes
+============================================================
+   📊 Current state: Visible
+   🖱️ Clicked toggle for Notes
+   📊 New state: Hidden
+   ✅ Column "Notes" is now HIDDEN from table
+============================================================
+
+
+============================================================
+🔄 Toggling column: Notes
+============================================================
+   📊 Current state: Hidden
+   🖱️ Clicked toggle for Notes
+   📊 New state: Visible
+   ✅ Column "Notes" is now VISIBLE in table
+============================================================
+
+
+============================================================
+🔄 Toggling column: MFH Status
+============================================================
+   📊 Current state: Visible
+   🖱️ Clicked toggle for MFH Status
+   📊 New state: Hidden
+   ✅ Column "MFH Status" is now HIDDEN from table
+============================================================
+
+
+============================================================
+🔄 Toggling column: MFH Status
+============================================================
+   📊 Current state: Hidden
+   🖱️ Clicked toggle for MFH Status
+   📊 New state: Visible
+   ✅ Column "MFH Status" is now VISIBLE in table
+============================================================
+
+
+============================================================
+🔄 Toggling column: Customer
+============================================================
+   📊 Current state: Visible
+   🖱️ Clicked toggle for Customer
+   📊 New state: Hidden
+   ✅ Column "Customer" is now HIDDEN from table
+============================================================
+
+
+============================================================
+🔄 Toggling column: Customer
+============================================================
+   📊 Current state: Hidden
+   🖱️ Clicked toggle for Customer
+   📊 New state: Visible
+   ✅ Column "Customer" is now VISIBLE in table
+============================================================
+
+
+============================================================
+🔄 Toggling column: Items
+============================================================
+   📊 Current state: Visible
+   🖱️ Clicked toggle for Items
+   📊 New state: Hidden
+   ✅ Column "Items" is now HIDDEN from table
+============================================================
+
+
+============================================================
+🔄 Toggling column: Items
+============================================================
+   📊 Current state: Hidden
+   🖱️ Clicked toggle for Items
+   📊 New state: Visible
+   ✅ Column "Items" is now VISIBLE in table
+============================================================
+
+
+============================================================
+🔄 Toggling column: Kit(s)
+============================================================
+   📊 Current state: Visible
+   🖱️ Clicked toggle for Kit(s)
+   📊 New state: Hidden
+   ✅ Column "Kit(s)" is now HIDDEN from table
+============================================================
+
+
+============================================================
+🔄 Toggling column: Kit(s)
+============================================================
+   📊 Current state: Hidden
+   🖱️ Clicked toggle for Kit(s)
+   📊 New state: Visible
+   ✅ Column "Kit(s)" is now VISIBLE in table
+============================================================
+
+
+============================================================
+🔄 Toggling column: PPKit(s)
+============================================================
+   📊 Current state: Visible
+   🖱️ Clicked toggle for PPKit(s)
+   📊 New state: Hidden
+   ✅ Column "PPKit(s)" is now HIDDEN from table
+============================================================
+
+
+============================================================
+🔄 Toggling column: PPKit(s)
+============================================================
+   📊 Current state: Hidden
+   🖱️ Clicked toggle for PPKit(s)
+   📊 New state: Visible
+   ✅ Column "PPKit(s)" is now VISIBLE in table
+============================================================
+
+
+============================================================
+🔄 Toggling column: Outbound Shipping
+============================================================
+   📊 Current state: Visible
+   🖱️ Clicked toggle for Outbound Shipping
+   📊 New state: Hidden
+   ✅ Column "Outbound Shipping" is now HIDDEN from table
+============================================================
+
+
+============================================================
+🔄 Toggling column: Outbound Shipping
+============================================================
+   📊 Current state: Hidden
+   🖱️ Clicked toggle for Outbound Shipping
+   📊 New state: Visible
+   ✅ Column "Outbound Shipping" is now VISIBLE in table
+============================================================
+
+
+============================================================
+📊 COLUMN TOGGLE SUMMARY
+============================================================
+✅ Successful toggles: 16
+❌ Failed toggles: 0
+============================================================
+
+🔄 Refresh started
+✅ Success message visible
+📸 Screenshot saved: shopify-refresh-success.png
+✅ Message disappeared
