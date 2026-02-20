@@ -15,7 +15,6 @@ allure-report/
 
 # Node
 node_modules/
-package-lock.json
 
 # Environment
 .env
@@ -24,4 +23,4 @@ package-lock.json
 # -----------------------------
 auth.json
 credentials.js
-Utils/
+
