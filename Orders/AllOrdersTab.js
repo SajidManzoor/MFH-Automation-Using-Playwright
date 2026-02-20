@@ -5,7 +5,7 @@ exports.Orders = class Orders {
   constructor(page) {
     this.page = page;
 
-    // Orders parent menu
+    // Orders parent menu Items
     this.ordersMenu = page.locator('li').filter({ hasText: 'Orders' }).first();
     this.orderSearchA = page.getByRole('textbox', { name: 'Search' });
     this.AllPage = page.locator('a').filter({ hasText: 'All' }).first();
