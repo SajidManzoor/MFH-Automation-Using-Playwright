@@ -39,6 +39,21 @@ jobs:
         env:
           PLAYWRIGHT_AUTH_FILE: auth.json
         run: npx playwright test || true
+       # 7️⃣ Write Allure Environment Properties
+      - name: Write Allure environment.properties
+        if: always()
+        run: |
+          mkdir -p allure-results
+          cat > allure-results/environment.properties << EOF
+          Browser=Chromium
+          Browser.Version=$(npx playwright --version | grep -oP '\d+\.\d+\.\d+' || echo "latest")
+          Node.Version=$(node --version)
+          OS=${{ runner.os }}
+          Branch=${{ github.ref_name }}
+          Commit=${{ github.sha }}
+          Triggered.By=${{ github.actor }}
+          Run.ID=${{ github.run_id }}
+          EOF
 
       # 7️⃣ Generate Allure Report (Fresh Every Time)
       - name: Generate Allure Report
