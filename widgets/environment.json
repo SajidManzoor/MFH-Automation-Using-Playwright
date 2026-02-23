@@ -1,1 +1,1 @@
-[]
+[{"values":["Chromium"],"name":"Browser"},{"values":["1.58.2"],"name":"Browser.Version"},{"values":["v24.13.0"],"name":"Node.Version"},{"values":["Linux"],"name":"OS"},{"values":["main"],"name":"Branch"},{"values":["17aa3d1e171370bfc5cc98426acb150c710200d0"],"name":"Commit"},{"values":["SajidManzoor"],"name":"Triggered.By"},{"values":["22304376403"],"name":"Run.ID"}]
