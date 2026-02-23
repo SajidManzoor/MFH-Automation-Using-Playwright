@@ -2,13 +2,13 @@
 ============================================================
 🔍 AUTO SEARCH & VERIFY - Row 1
 ============================================================
-📋 Picked order number: 23801
+📋 Picked order number: 23842
 📊 Captured status: "new"
 🧹 Cleared search field
-⌨️ Entered order number: 23801
+⌨️ Entered order number: 23842
 📊 Search results: 1 row(s) found
 ✅ ONLY 1 order displayed (correct)
-✅ Order number verified: 23801
+✅ Order number verified: 23842
 ✅ Status verified: "new"
 ============================================================
 ✅ ALL VERIFICATIONS PASSED
@@ -200,5 +200,4 @@
 
 🔄 Refresh started
 ✅ Success message visible
-📸 Screenshot saved: shopify-refresh-success.png
 ✅ Message disappeared
