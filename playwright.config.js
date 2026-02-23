@@ -15,6 +15,7 @@ import path from 'path/win32';
  */
 export default defineConfig({
   testDir: './tests',
+ timeout: 90000,
   fullyParallel: false, // run one test at a time in debug mode
   /* Run tests in files in parallel */
   // fullyParallel: true,

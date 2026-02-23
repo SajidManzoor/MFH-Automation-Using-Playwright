@@ -2,9 +2,7 @@ import { test, expect } from '@playwright/test';
 import { Orders } from '../Orders/AllOrdersTab';
 
 
-test.describe.serial('Test Suite with General Order Flow', () => {
-
-  test.setTimeout(180000);
+test.describe('Test Suite with General Order Flow', () => {
 
   let orders;
  
@@ -21,6 +19,19 @@ test.describe.serial('Test Suite with General Order Flow', () => {
     await orders.testAllColumnToggles();
     await orders.refreshOrdersFromShopify();
   });
+
+   test('Failed test', async ({ page }) => {
+
+    orders = new Orders(page);
+
+    await orders.gotoKitsPage();
+    await orders.openOrdersMenu();
+    await orders.verifyOrdersTabsVisible();
+    await orders.gotoAllorders();
+    await orders.refreshOrderFail();
+  });
+
+
 
  
 

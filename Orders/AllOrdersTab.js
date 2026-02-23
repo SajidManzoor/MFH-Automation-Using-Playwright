@@ -5,17 +5,15 @@ exports.Orders = class Orders {
   constructor(page) {
     this.page = page;
 
-    // Orders parent menu Items
     this.ordersMenu = page.locator('li').filter({ hasText: 'Orders' }).first();
-    this.orderSearchA = page.getByRole('textbox', { name: 'Search' });
     this.AllPage = page.locator('a').filter({ hasText: 'All' }).first();
     this.columnsToggleBtn = page.getByRole('button', { name: 'Columns' });
     this.columnsMenu = page.locator('div[role="presentation"] ul');
-
     this.orderSearch = new OrderSearch(page);
     this.resultOrderNum = page.locator("//tbody/tr[1]/td[2]");
     this.refreshOrderbtn = page.locator('p:has-text("REFRESH ORDERS FROM SHOPIFY")');
     this.successMessage = page.getByText(/Shopify Order Refresh complete/i);
+    this.WrongMessage= page.getByText(/Wrong/i);
 
     this.orderTabs = [
       'All',
@@ -70,17 +68,19 @@ exports.Orders = class Orders {
     console.log('🔄 Refresh started');
 
     await this.refreshOrderbtn.click();
-    await this.successMessage.waitFor({ state: 'visible' });
+    await this.successMessage.waitFor({ state: 'visible'});
     console.log('✅ Success message visible');
-
-    await this.page.screenshot({
-      path: 'shopify-refresh-success.png',
-      fullPage: true
-    });
-    console.log('📸 Screenshot saved: shopify-refresh-success.png');
-
     await this.successMessage.waitFor({ state: 'hidden' });
     console.log('✅ Message disappeared');
+  }
+
+  async refreshOrderFail() {
+    console.log('🔄 Refresh started');
+
+    await this.refreshOrderbtn.click();
+    await this.WrongMessage.waitFor({ state: 'visible'});
+    console.log('✅ Success message visible');
+    
   }
 
   async verifyAllColumnsVisible() {
@@ -118,54 +118,53 @@ exports.Orders = class Orders {
     console.log('='.repeat(60));
 
     try {
-      // Open columns menu if not already open
+     
       const menuVisible = await this.columnsMenu.isVisible().catch(() => false);
       if (!menuVisible) {
         await this.columnsToggleBtn.click();
-        await this.page.waitForTimeout(500);
+        await this.page.waitForLoadState('networkidle');
       }
 
-      // 🔥 Find the checkbox/toggle with EXACT match
+    
       const columnItem = this.columnsMenu.getByRole('checkbox', { name: columnName, exact: true });
       await expect(columnItem).toBeVisible({ timeout: 5000 });
 
-      // Check current state before toggle
+
       const isCheckedBefore = await columnItem.isChecked();
       console.log(`   📊 Current state: ${isCheckedBefore ? 'Visible' : 'Hidden'}`);
 
-      // Click to toggle
+      
       await columnItem.click();
       await this.page.waitForTimeout(500);
       console.log(`   🖱️ Clicked toggle for ${columnName}`);
 
-      // Verify checkbox state changed
+      
       const isCheckedAfter = await columnItem.isChecked();
       console.log(`   📊 New state: ${isCheckedAfter ? 'Visible' : 'Hidden'}`);
 
-      // Close menu BEFORE checking table visibility
+      
       await this.page.keyboard.press('Escape');
       await this.page.waitForLoadState('networkidle');
+      await this.page.waitForLoadState();
+
       await this.page.waitForTimeout(1000);
 
-      // Verify column visibility in the table with safer approach
      const columnHeader = this.page.locator('table thead th').filter({ hasText: new RegExp(`^${columnName.replace(/[()]/g, '\\$&')}$`) });
 
       if (isCheckedAfter) {
-        // Should be visible
+        
         try {
           await expect(columnHeader).toBeVisible({ timeout: 3000 });
           console.log(`   ✅ Column "${columnName}" is now VISIBLE in table`);
         } catch (err) {
-          console.log(`   ⚠️ Column "${columnName}" not visible in table (may be expected)`);
+          console.log(`   ⚠️ Column "${columnName}" not visible in table `);
         }
       } else {
-        // Should be hidden - just check without assertion
-        await this.page.waitForTimeout(500);
         const isVisible = await columnHeader.isVisible({ timeout: 1000 }).catch(() => false);
         if (!isVisible) {
           console.log(`   ✅ Column "${columnName}" is now HIDDEN from table`);
         } else {
-          console.log(`   ⚠️ Column "${columnName}" still visible (unexpected)`);
+          console.log(`   ⚠️ Column "${columnName}" still visible (Not hidden)`);
         }
       }
 
@@ -181,7 +180,6 @@ exports.Orders = class Orders {
       console.log(`   ❌ Error toggling column: ${err.message}`);
       console.log('='.repeat(60) + '\n');
 
-      // Try to close menu if still open
       await this.page.keyboard.press('Escape').catch(() => {});
 
       return {
@@ -200,20 +198,21 @@ exports.Orders = class Orders {
     const results = [];
 
     for (const columnName of columnNames) {
-      // Toggle OFF
+    
       const offResult = await this.toggleColumn(columnName);
       results.push({ column: columnName, action: 'OFF', ...offResult });
 
-      await this.page.waitForTimeout(1000);
+      await this.page.waitForLoadState('networkidle');
 
-      // Toggle ON
+    
       const onResult = await this.toggleColumn(columnName);
       results.push({ column: columnName, action: 'ON', ...onResult });
 
-      await this.page.waitForTimeout(1000);
+      await this.page.waitForLoadState('networkidle');
+
     }
 
-    // Summary
+    
     const successCount = results.filter(r => r.success).length;
     const failCount = results.filter(r => !r.success).length;
 
