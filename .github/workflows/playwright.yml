@@ -34,13 +34,17 @@ jobs:
       - name: Create Playwright auth state
         run: echo '${{ secrets.PLAYWRIGHT_AUTH_STATE }}' > auth.json
 
+         # 6️⃣ Prepare Allure history folder
+      - name: Prepare Allure history folder
+        run: mkdir -p ./allure-results/history
+
       # 6️⃣ Restore Allure history from previous CI run
       - name: Restore Allure history
         uses: actions/download-artifact@v4
         with:
           name: allure-history
           path: ./allure-results/history
-          continue-on-error: true
+        continue-on-error: true   
 
       # 7️⃣ Run Playwright tests
       - name: Run Playwright tests
