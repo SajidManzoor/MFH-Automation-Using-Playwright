@@ -23,7 +23,7 @@ test.describe('Test Suite with General Order Flow', () => {
 
     orders = new Orders(page);
 
-    // await orders.gotoKitsPage();
+    await orders.gotoKitsPage();
     await orders.openOrdersMenu();
     await orders.verifyOrdersTabsVisible();
     await orders.gotoAllorders();

@@ -40,6 +40,7 @@ jobs:
         with:
           name: allure-history
           path: ./allure-results/history
+          continue-on-error: true
 
       # 7️⃣ Run Playwright tests
       - name: Run Playwright tests
