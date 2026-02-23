@@ -15,10 +15,10 @@ import path from 'path/win32';
  */
 export default defineConfig({
   testDir: './tests',
- timeout: 90000,
-  fullyParallel: false, // run one test at a time in debug mode
+ timeout: 120000,
+  // fullyParallel: false, // run one test at a time in debug mode
   /* Run tests in files in parallel */
-  // fullyParallel: true,
+  fullyParallel: true,
   // /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */

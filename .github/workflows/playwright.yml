@@ -12,31 +12,58 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout code
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
+      # 3️⃣ Install project dependencies
       - name: Install dependencies
         run: npm ci
 
+      # 4️⃣ Install Playwright browsers
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      # 🔐 CREATE auth.json FROM SECRET
+      # 5️⃣ Create auth.json from secret
       - name: Create Playwright auth state
-        run: |
-          echo '${{ secrets.PLAYWRIGHT_AUTH_STATE }}' > auth.json
+        run: echo '${{ secrets.PLAYWRIGHT_AUTH_STATE }}' > auth.json
 
-      # ▶️ RUN TESTS WITH AUTH
+      # 6️⃣ Restore Allure history from previous CI run
+      - name: Restore Allure history
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-history
+          path: ./allure-results/history
+
+      # 7️⃣ Run Playwright tests
       - name: Run Playwright tests
         env:
           PLAYWRIGHT_AUTH_FILE: auth.json
         run: npx playwright test
 
+      # 8️⃣ Trim Allure trend JSONs to last 5 runs
+      - name: Trim Allure history
+        run: |
+          mkdir -p ./allure-results/history
+          for f in ./allure-results/history/*-trend.json; do
+            if [ -f "$f" ]; then
+              jq '.[-5:]' "$f" > "$f.tmp" && mv "$f.tmp" "$f"
+            fi
+          done
+
+      # 9️⃣ Generate Allure report
+      - name: Generate Allure Report
+        run: |
+          npm install -g allure-commandline
+          allure generate allure-results --clean -o allure-report
+
+      # 🔹 Upload Playwright report as artifact
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
@@ -45,15 +72,15 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-      
-      # 🔹 Generate Allure report
-      - name: Generate Allure Report
-        if: always()
-        run: |
-          npm install -g allure-commandline
-          allure generate allure-results --clean -o allure-report
+      # 🔹 Upload Allure history for next run
+      - name: Upload Allure history
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-history
+          path: ./allure-results/history
+          retention-days: 30
 
-      # 🔹 Publish Allure report to GitHub Pages
+      # 🔹 Deploy Allure Report to GitHub Pages
       - name: Deploy Allure Report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3

@@ -5,22 +5,9 @@ import { Orders } from '../Orders/AllOrdersTab';
 test.describe('Test Suite with General Order Flow', () => {
 
   let orders;
- 
-  test('All Orders tab Functionality Test', async ({ page }) => {
 
-    orders = new Orders(page);
 
-    await orders.gotoKitsPage();
-    await orders.openOrdersMenu();
-    await orders.verifyOrdersTabsVisible();
-    await orders.gotoAllorders();
-    await orders.searchAndVerifyOrder();
-    await orders.verifyAllColumnsVisible();
-    await orders.testAllColumnToggles();
-    await orders.refreshOrdersFromShopify();
-  });
-
-   test('Failed test', async ({ page }) => {
+     test('Failed test', async ({ page }) => {
 
     orders = new Orders(page);
 
@@ -31,11 +18,22 @@ test.describe('Test Suite with General Order Flow', () => {
     await orders.refreshOrderFail();
   });
 
+ 
+  test('All Orders tab Functionality Test', async ({ page }) => {
 
+    orders = new Orders(page);
+
+    // await orders.gotoKitsPage();
+    await orders.openOrdersMenu();
+    await orders.verifyOrdersTabsVisible();
+    await orders.gotoAllorders();
+    await orders.searchAndVerifyOrder();
+    await orders.verifyAllColumnsVisible();
+    await orders.testAllColumnToggles();
+    await orders.refreshOrdersFromShopify();
+  });
 
  
-
-
 
 
 });
