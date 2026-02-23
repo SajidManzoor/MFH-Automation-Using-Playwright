@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import { OrderSearch } from '../Utils/ordersUtils';
+import { time } from 'node:console';
 
 exports.Orders = class Orders {
   constructor(page) {
@@ -78,8 +79,8 @@ exports.Orders = class Orders {
     console.log('🔄 Refresh started');
 
     await this.refreshOrderbtn.click();
-    await this.WrongMessage.waitFor({ state: 'visible'});
-    console.log('✅ Success message visible');
+    await this.WrongMessage.waitFor({ state: 'visible', timeout: 5000 });
+    console.log('✅ Wrong message visible');
     
   }
 

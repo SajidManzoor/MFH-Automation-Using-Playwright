@@ -34,25 +34,25 @@ jobs:
       - name: Create Playwright auth state
         run: echo '${{ secrets.PLAYWRIGHT_AUTH_STATE }}' > auth.json
 
-         # 6️⃣ Prepare Allure history folder
+      # 6️⃣ Prepare Allure history folder
       - name: Prepare Allure history folder
         run: mkdir -p ./allure-results/history
 
-      # 6️⃣ Restore Allure history from previous CI run
+      # 7️⃣ Restore Allure history from previous CI run
       - name: Restore Allure history
         uses: actions/download-artifact@v4
         with:
           name: allure-history
           path: ./allure-results/history
-        continue-on-error: true   
+        continue-on-error: true
 
-      # 7️⃣ Run Playwright tests
+      # 8️⃣ Run Playwright tests
       - name: Run Playwright tests
         env:
           PLAYWRIGHT_AUTH_FILE: auth.json
         run: npx playwright test
 
-      # 8️⃣ Trim Allure trend JSONs to last 5 runs
+      # 9️⃣ Trim Allure trend JSONs to last 5 runs
       - name: Trim Allure history
         run: |
           mkdir -p ./allure-results/history
@@ -62,11 +62,20 @@ jobs:
             fi
           done
 
-      # 9️⃣ Generate Allure report
+      # 🔹 Generate Allure report safely
       - name: Generate Allure Report
         run: |
           npm install -g allure-commandline
-          allure generate allure-results --clean -o allure-report
+          if [ -d "allure-results" ] && [ "$(ls -A allure-results)" ]; then
+            allure generate allure-results --clean -o allure-report
+          else
+            echo "No allure-results found, skipping report generation"
+            mkdir -p allure-report
+          fi
+
+      # 🔹 Ensure allure-report folder exists before deployment
+      - name: Ensure allure-report folder exists
+        run: mkdir -p allure-report
 
       # 🔹 Upload Playwright report as artifact
       - name: Upload Playwright Report
